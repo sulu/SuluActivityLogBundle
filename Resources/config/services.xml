@@ -10,5 +10,8 @@
             <tag name="sulu.admin"/>
             <tag name="sulu.context" context="admin"/>
         </service>
+        <service id="sulu_activity_log.crate_activity_log_storage" class="Sulu\Bundle\ActivityLogBundle\Storage\CrateActivityLogStorage">
+            <argument type="service" id="doctrine"/>
+        </service>
     </services>
 </container>
