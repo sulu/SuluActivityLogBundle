@@ -41,7 +41,7 @@ class CrateActivityLogStorage implements ActivityLogStorageInterface
     }
 
     /**
-     * @{inheritdoc}
+     * {@inheritdoc}
      */
     public function find($uuid = null)
     {
@@ -56,7 +56,7 @@ class CrateActivityLogStorage implements ActivityLogStorageInterface
     }
 
     /**
-     * @{inheritdoc}
+     * {@inheritdoc}
      */
     public function findAll($page = 1, $pageSize = null)
     {
@@ -70,14 +70,14 @@ class CrateActivityLogStorage implements ActivityLogStorageInterface
     }
 
     /**
-     * @{inheritdoc}
+     * {@inheritdoc}
      */
     public function findByParent(ActivityLogInterface $activityLog, $page = 1, $pageSize = null)
     {
     }
 
     /**
-     * @{inheritdoc}
+     * {@inheritdoc}
      */
     public function persist(ActivityLogInterface $activityLog)
     {
@@ -90,7 +90,7 @@ class CrateActivityLogStorage implements ActivityLogStorageInterface
     }
 
     /**
-     * @{inheritdoc}
+     * {@inheritdoc}
      */
     public function flush()
     {
