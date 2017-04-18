@@ -53,7 +53,7 @@ class ActivityLogController extends FOSRestController implements ClassResourceIn
     private function getFieldDescriptors()
     {
         return [
-            'uuid' => new FieldDescriptor('id', 'public.id', true),
+            'uuid' => new FieldDescriptor('id', 'public.id', true, false),
             'source' => new FieldDescriptor('source', 'public.source', false, true),
             'action' => new FieldDescriptor('action', 'public.action', false, true),
             'value' => new FieldDescriptor('value', 'public.value', false, true),
