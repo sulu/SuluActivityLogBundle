@@ -30,7 +30,7 @@ class ActivityLogAdmin extends Admin
         $global = new NavigationItem('navigation.modules', $rootNavigationItem);
         $activityLog = new NavigationItem('navigation.activitylog', $global);
         $activityLog->setAction('activity-log');
-        $activityLog->setIcon('pencil-square-o');
+        $activityLog->setIcon('list-alt');
 
         $this->setNavigation(new Navigation($rootNavigationItem));
     }
