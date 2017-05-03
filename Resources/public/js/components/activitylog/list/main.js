@@ -21,7 +21,7 @@ define(['text!./list.html'], function(list) {
         defaults: defaults,
 
         header: {
-            title: 'sulu_activity_log.headline',
+            title: 'navigation.activity_log',
             underline: false,
 
             toolbar: {

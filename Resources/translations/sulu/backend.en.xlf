@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+    <file source-language="de" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="f1232d456823123fd4a73a4123dfdf001" resname="public.activity_log.action">
+                <source>public.activity_log.action</source>
+                <target>Action</target>
+            </trans-unit>
+            <trans-unit id="f1233d456823123fd4a73a4123dfdf001" resname="public.activity_log.value">
+                <source>public.activity_log.value</source>
+                <target>Value</target>
+            </trans-unit>
+            <trans-unit id="f1234d456823123fd4a73a4123dfdf001" resname="public.activity_log.timestamp">
+                <source>public.activity_log.timestamp</source>
+                <target>Time</target>
+            </trans-unit>
+            <trans-unit id="f1235d456823123fd4a73a4123dfdf001" resname="public.activity_log.userId">
+                <source>public.activity_log.userId</source>
+                <target>User ID</target>
+            </trans-unit>
+            <trans-unit id="f1236d456823123fd4a73a4123dfdf001" resname="public.activity_log.userName">
+                <source>public.activity_log.userName</source>
+                <target>Username</target>
+            </trans-unit>
+            <trans-unit id="f1237d456823123fd4a73a4123dfdf001" resname="public.activity_log.deviceName">
+                <source>public.activity_log.deviceName</source>
+                <target>Devicename</target>
+            </trans-unit>
+            <trans-unit id="f1238d456823123fd4a73a4123dfdf001" resname="public.activity_log.gatewayId">
+                <source>public.activity_log.gatewayId</source>
+                <target>Gateway ID</target>
+            </trans-unit>
+            <trans-unit id="f1239d456823123fd4a73a4123dfdf001" resname="public.activity_log.deviceId">
+                <source>public.activity_log.userName</source>
+                <target>Internal device ID</target>
+            </trans-unit>
+            <trans-unit id="f12310d456823123fd4a73a4123dfdf001" resname="public.activity_log.userIp">
+                <source>public.activity_log.userIp</source>
+                <target>IP address</target>
+            </trans-unit>
+            <trans-unit id="f12311d456823123fd4a73a4123dfdf001" resname="public.activity_log.source">
+                <source>public.activity_log.source</source>
+                <target>Source</target>
+            </trans-unit>
+            <trans-unit id="f12312d456823123fd4a73a4123dfdf001" resname="navigation.activity_log">
+                <source>navigation.activity_log</source>
+                <target>Activity log</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

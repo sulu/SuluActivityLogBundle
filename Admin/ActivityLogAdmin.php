@@ -27,10 +27,15 @@ class ActivityLogAdmin extends Admin
     {
         $rootNavigationItem = new NavigationItem($title);
 
-        $global = new NavigationItem('navigation.modules', $rootNavigationItem);
-        $activityLog = new NavigationItem('navigation.activitylog', $global);
+        $section = new NavigationItem('');
+
+        $rootNavigationItem->addChild($section);
+
+        $activityLog = new NavigationItem('navigation.activity_log');
         $activityLog->setAction('activity-log');
         $activityLog->setIcon('list-alt');
+
+        $section->addChild($activityLog);
 
         $this->setNavigation(new Navigation($rootNavigationItem));
     }
