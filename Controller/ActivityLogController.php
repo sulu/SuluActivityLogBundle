@@ -15,10 +15,9 @@ use Exception;
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Routing\ClassResourceInterface;
-use Sulu\Bundle\ActivityLogBundle\Compatibility\FieldDescriptor;
 use Sulu\Component\ActivityLog\ActivityLogger;
-use Sulu\Component\ActivityLog\ActivityLoggerInterface;
 use Sulu\Component\Rest\Exception\EntityNotFoundException;
+use Sulu\Component\Rest\ListBuilder\FieldDescriptor;
 use Sulu\Component\Rest\ListBuilder\ListRepresentation;
 use Sulu\Component\Rest\ListBuilder\ListRestHelper;
 use Symfony\Component\HttpFoundation\Request;
@@ -51,19 +50,6 @@ class ActivityLogController extends FOSRestController implements ClassResourceIn
                 200
             )
         );
-    }
-
-    /**
-     * Create field-descriptor array.
-     *
-     * @return FieldDescriptor[]
-     */
-    private function getFieldDescriptors()
-    {
-        return [
-            'uuid' => new FieldDescriptor('id', 'public.id', true, false),
-            'data' => new FieldDescriptor('data', 'public.data', false, true),
-        ];
     }
 
     /**
@@ -107,6 +93,19 @@ class ActivityLogController extends FOSRestController implements ClassResourceIn
     }
 
     /**
+     * Create field-descriptor array.
+     *
+     * @return FieldDescriptor[]
+     */
+    protected function getFieldDescriptors()
+    {
+        return [
+            'uuid' => new FieldDescriptor('id', 'public.id', true, false),
+            'data' => new FieldDescriptor('data', 'public.data', false, true),
+        ];
+    }
+
+    /**
      * returns view of files
      *
      * @param Request $request
@@ -115,17 +114,31 @@ class ActivityLogController extends FOSRestController implements ClassResourceIn
      *
      * @return ListRepresentation
      */
-    private function getActivityLogs(Request $request)
+    protected function getActivityLogs(Request $request)
     {
-        $restHelper = new ListRestHelper($request);
+        $restHelper = $this->get('sulu_core.list_rest_helper');
 
         /** @var ActivityLogger $activityLogger */
         $activityLogger = $this->get('sulu_activity_log.activity_logger');
 
         $page = (int)$restHelper->getPage();
         $limit = (int)$restHelper->getLimit();
+        $sortColumn = $restHelper->getSortColumn();
+        $sortOrder = $restHelper->getSortOrder();
+        $searchPattern = $restHelper->getSearchPattern();
+        $searchFields = $restHelper->getSearchFields();
 
-        $list = $activityLogger->findAll($page, $limit);
+        $list = $activityLogger->findAllWithSearch(
+            $searchPattern,
+            $searchFields,
+            $page,
+            $limit,
+            $sortColumn,
+            $sortOrder
+        );
+
+        $total = $activityLogger->getCountForAllWithSearch($searchPattern, $searchFields);
+
         $list = array_values($list);
 
         $list = new ListRepresentation(
@@ -135,7 +148,7 @@ class ActivityLogController extends FOSRestController implements ClassResourceIn
             $request->query->all(),
             $page,
             $limit,
-            count($list)
+            $total
         );
 
         return $list;
@@ -147,7 +160,7 @@ class ActivityLogController extends FOSRestController implements ClassResourceIn
      *
      * @return string
      */
-    private function listToCsv($list, $delimiter)
+    protected function listToCsv($list, $delimiter)
     {
         $data = $list->getInline()->getResources();
         $csv = '';
@@ -171,7 +184,7 @@ class ActivityLogController extends FOSRestController implements ClassResourceIn
      *
      * @return string
      */
-    private function addLine($dataline, $delimiter)
+    protected function addLine($dataline, $delimiter)
     {
         $csvLine = '';
         foreach ($dataline as $datafield) {
@@ -192,7 +205,7 @@ class ActivityLogController extends FOSRestController implements ClassResourceIn
      *
      * @return Response
      */
-    private function generateCsvResponse($csv)
+    protected function generateCsvResponse($csv)
     {
         $response = new Response();
         $response->setContent($csv);

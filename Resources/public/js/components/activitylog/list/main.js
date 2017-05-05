@@ -25,9 +25,7 @@ define(['text!./list.html'], function(list) {
             underline: false,
 
             toolbar: {
-                buttons: {
-                    deleteSelected: {}
-                }
+                buttons: {}
             }
         },
 
@@ -77,12 +75,17 @@ define(['text!./list.html'], function(list) {
                     el: this.sandbox.dom.find('#activity-log-list'),
                     url: '/admin/api/activity-log',
                     searchInstanceName: 'activitylog',
-                    searchFields: ['title'],
                     resultKey: 'activity-log-items',
                     instanceName: 'activitylog',
                     viewOptions: {
                         table: {
-                            actionIconColumn: 'title'
+                            editable: false,
+                            validation: false,
+                            cropContents: false,
+                            fullWidth: true,
+                            selectItem: {
+                                type: null
+                            }
                         }
                     }
                 }
