@@ -34,9 +34,11 @@ class ActivityLogController extends FOSRestController implements ClassResourceIn
      *
      * @Get("activity-log/fields")
      *
+     * @param Request $request
+     *
      * @return mixed
      */
-    public function getFieldsAction()
+    public function getFieldsAction(Request $request)
     {
         // default contacts list
         return $this->handleView(
