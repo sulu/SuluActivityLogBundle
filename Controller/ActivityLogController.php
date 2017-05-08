@@ -25,7 +25,6 @@ use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 
 class ActivityLogController extends FOSRestController implements ClassResourceInterface
 {
-
     const EXPORT_COLUMN_DELIMITER = ';';
     const EXPORT_FILENAME = 'acitivity-log-export';
 
