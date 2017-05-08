@@ -6,16 +6,6 @@ define(['text!./list.html'], function(list) {
         }
     };
 
-    var ready = false;
-
-    var total = 0;
-
-    var exportActivityLog = function() {
-        if (ready) {
-            window.location = '/admin/api/activity-log/export?limit=' + total;
-        }
-    };
-
     return {
 
         defaults: defaults,
@@ -25,7 +15,13 @@ define(['text!./list.html'], function(list) {
             underline: false,
 
             toolbar: {
-                buttons: {}
+                buttons: {
+                    export: {
+                        options: {
+                            url: '/admin/api/activity-log.csv'
+                        }
+                    }
+                }
             }
         },
 
@@ -52,14 +48,6 @@ define(['text!./list.html'], function(list) {
                     el: this.$find('#list-toolbar-container'),
                     instanceName: 'activitylog',
                     template: this.sandbox.sulu.buttons.get({
-                        exportButton: {
-                            options: {
-                                id: 'export-button',
-                                icon: 'download',
-                                callback: exportActivityLog,
-                                class: 'disabled'
-                            }
-                        },
                         settings: {
                             options: {
                                 dropdownItems: [
@@ -90,13 +78,6 @@ define(['text!./list.html'], function(list) {
                     }
                 }
             );
-
-            // use total count of rows for loading export
-            this.sandbox.on('husky.datagrid.activitylog.loaded', function(data) {
-                ready = true;
-                total = data.total;
-                $('[data-id="exportButton"]').removeClass('disabled');
-            });
         },
 
         deleteItems: function(ids) {

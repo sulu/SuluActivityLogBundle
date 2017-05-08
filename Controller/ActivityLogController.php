@@ -11,7 +11,6 @@
 
 namespace Sulu\Bundle\ActivityLogBundle\Controller;
 
-use Exception;
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Routing\ClassResourceInterface;
@@ -20,8 +19,6 @@ use Sulu\Component\Rest\Exception\EntityNotFoundException;
 use Sulu\Component\Rest\ListBuilder\FieldDescriptor;
 use Sulu\Component\Rest\ListBuilder\ListRepresentation;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 
 class ActivityLogController extends FOSRestController implements ClassResourceInterface
 {
@@ -64,28 +61,6 @@ class ActivityLogController extends FOSRestController implements ClassResourceIn
         $list = $this->getActivityLogs($request);
 
         $view = $this->view($list, 200);
-
-        return $this->handleView($view);
-    }
-
-    /**
-     * returns datagrid list of activity-log for export.
-     *
-     * @param Request $request
-     *
-     * @Get("activity-log/export")
-     *
-     * @return Response
-     */
-    public function getActivityLogExportAction(Request $request)
-    {
-        try {
-            $list = $this->getActivityLogs($request);
-
-            return $this->generateCsvResponse($this->listToCsv($list, self::EXPORT_COLUMN_DELIMITER));
-        } catch (Exception $e) {
-            $view = $this->view([$e->getMessage()], 400);
-        }
 
         return $this->handleView($view);
     }
@@ -150,69 +125,5 @@ class ActivityLogController extends FOSRestController implements ClassResourceIn
         );
 
         return $list;
-    }
-
-    /**
-     * @param ListRepresentation $list
-     * @param string $delimiter
-     *
-     * @return string
-     */
-    protected function listToCsv($list, $delimiter)
-    {
-        $data = $list->getInline()->getResources();
-        $csv = '';
-        $headers = array_keys(reset($data));
-        foreach ($headers as $header) {
-            $csv .= $header . $delimiter;
-        }
-        $csv = rtrim($csv, $delimiter) . PHP_EOL;
-
-        // iterate over data array
-        foreach ($data as $dataLine) {
-            $csv .= $this->addLine($dataLine, $delimiter);
-        }
-
-        return $csv;
-    }
-
-    /**
-     * @param array $dataLine
-     * @param string $delimiter
-     *
-     * @return string
-     */
-    protected function addLine($dataLine, $delimiter)
-    {
-        $csvLine = '';
-        foreach ($dataLine as $dataField) {
-            if ($dataField instanceof DateTime) {
-                $csvLine .= $dataField->format(DateTime::ISO8601);
-            } elseif (is_scalar($dataField)) {
-                $csvLine .= $dataField;
-            }
-            $csvLine .= $delimiter;
-        }
-        $csvLine = rtrim($csvLine, $delimiter) . PHP_EOL;
-
-        return $csvLine;
-    }
-
-    /**
-     * @param string $csv
-     *
-     * @return Response
-     */
-    protected function generateCsvResponse($csv)
-    {
-        $response = new Response();
-        $response->setContent($csv);
-
-        $name = self::EXPORT_FILENAME . '-' . date('Ymd') . '.csv';
-        $disponent = $response->headers->makeDisposition(ResponseHeaderBag::DISPOSITION_ATTACHMENT, $name);
-        $response->headers->set('Content-Disposition', $disponent);
-        $response->headers->set('Content-Type', 'text/csv');
-
-        return $response;
     }
 }
