@@ -19,7 +19,6 @@ use Sulu\Component\ActivityLog\ActivityLogger;
 use Sulu\Component\Rest\Exception\EntityNotFoundException;
 use Sulu\Component\Rest\ListBuilder\FieldDescriptor;
 use Sulu\Component\Rest\ListBuilder\ListRepresentation;
-use Sulu\Component\Rest\ListBuilder\ListRestHelper;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
@@ -35,11 +34,9 @@ class ActivityLogController extends FOSRestController implements ClassResourceIn
      *
      * @Get("activity-log/fields")
      *
-     * @param Request $request
-     *
      * @return mixed
      */
-    public function getFieldsAction(Request $request)
+    public function getFieldsAction()
     {
         // default contacts list
         return $this->handleView(
@@ -53,7 +50,7 @@ class ActivityLogController extends FOSRestController implements ClassResourceIn
     }
 
     /**
-     * Shows all activity-log-items
+     * Shows all activity-log-items.
      *
      * @param Request $request
      *
@@ -71,7 +68,7 @@ class ActivityLogController extends FOSRestController implements ClassResourceIn
     }
 
     /**
-     * returns datagrid list of activity-log for export
+     * returns datagrid list of activity-log for export.
      *
      * @param Request $request
      *
@@ -86,7 +83,7 @@ class ActivityLogController extends FOSRestController implements ClassResourceIn
 
             return $this->generateCsvResponse($this->listToCsv($list, self::EXPORT_COLUMN_DELIMITER));
         } catch (Exception $e) {
-            $view = $this->view(array($e->getMessage()), 400);
+            $view = $this->view([$e->getMessage()], 400);
         }
 
         return $this->handleView($view);
@@ -106,7 +103,7 @@ class ActivityLogController extends FOSRestController implements ClassResourceIn
     }
 
     /**
-     * returns view of files
+     * returns view of files.
      *
      * @param Request $request
      *
@@ -121,8 +118,8 @@ class ActivityLogController extends FOSRestController implements ClassResourceIn
         /** @var ActivityLogger $activityLogger */
         $activityLogger = $this->get('sulu_activity_log.activity_logger');
 
-        $page = (int)$restHelper->getPage();
-        $limit = (int)$restHelper->getLimit();
+        $page = (int) $restHelper->getPage();
+        $limit = (int) $restHelper->getLimit();
         $sortColumn = $restHelper->getSortColumn();
         $sortOrder = $restHelper->getSortOrder();
         $searchPattern = $restHelper->getSearchPattern();
@@ -171,27 +168,27 @@ class ActivityLogController extends FOSRestController implements ClassResourceIn
         $csv = rtrim($csv, $delimiter) . PHP_EOL;
 
         // iterate over data array
-        foreach ($data as $dataline) {
-            $csv .= $this->addLine($dataline, $delimiter);
+        foreach ($data as $dataLine) {
+            $csv .= $this->addLine($dataLine, $delimiter);
         }
 
         return $csv;
     }
 
     /**
-     * @param array $dataline
+     * @param array $dataLine
      * @param string $delimiter
      *
      * @return string
      */
-    protected function addLine($dataline, $delimiter)
+    protected function addLine($dataLine, $delimiter)
     {
         $csvLine = '';
-        foreach ($dataline as $datafield) {
-            if ($datafield instanceof DateTime) {
-                $csvLine .= $datafield->format(DateTime::ISO8601);
-            } elseif (is_scalar($datafield)) {
-                $csvLine .= $datafield;
+        foreach ($dataLine as $dataField) {
+            if ($dataField instanceof DateTime) {
+                $csvLine .= $dataField->format(DateTime::ISO8601);
+            } elseif (is_scalar($dataField)) {
+                $csvLine .= $dataField;
             }
             $csvLine .= $delimiter;
         }
