@@ -17,9 +17,5 @@
         <service id="sulu_activity_log.user_repository_adapter" class="Sulu\Bundle\ActivityLogBundle\Repository\SuluUserRepositoryAdapter">
             <argument type="service" id="sulu.repository.user"/>
         </service>
-        <service id="sulu_activity_log.elasticsearch_storage" class="Sulu\Bundle\ElasticsearchActivityLogBundle\Storage\ElasticsearchActivityStorage">
-            <argument type="service" id="es.manager.live"/>
-            <argument type="service" id="sulu_activity_log.user_repository_adapter"/>
-        </service>
     </services>
 </container>

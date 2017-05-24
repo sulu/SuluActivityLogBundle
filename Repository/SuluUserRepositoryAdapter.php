@@ -15,7 +15,7 @@ use Sulu\Component\Security\Authentication\UserRepositoryInterface as SuluUserRe
 
 /**
  * Repository for the User, implementing some additional functions
- * for querying objects
+ * for querying objects.
  */
 class SuluUserRepositoryAdapter implements UserRepositoryInterface
 {
