@@ -20,6 +20,9 @@ use Sulu\Component\Rest\ListBuilder\FieldDescriptor;
 use Sulu\Component\Rest\ListBuilder\ListRepresentation;
 use Symfony\Component\HttpFoundation\Request;
 
+/**
+ * Makes activity logs available through a REST API.
+ */
 class ActivityLogController extends FOSRestController implements ClassResourceInterface
 {
     const EXPORT_COLUMN_DELIMITER = ';';

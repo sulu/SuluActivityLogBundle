@@ -27,7 +27,7 @@ class ActivityLogAdmin extends Admin
     {
         $rootNavigationItem = new NavigationItem($title);
 
-        $section = new NavigationItem('');
+        $section = new NavigationItem('navigation.modules');
 
         $rootNavigationItem->addChild($section);
 

@@ -11,6 +11,7 @@
 namespace Sulu\Bundle\ActivityLogBundle\Repository;
 
 use Sulu\Component\ActivityLog\Repository\UserRepositoryInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Sulu\Component\Security\Authentication\UserRepositoryInterface as SuluUserRepositoryInterface;
 
 /**
@@ -26,8 +27,13 @@ class SuluUserRepositoryAdapter implements UserRepositoryInterface
         $this->userRepository = $userRepository;
     }
 
+    /**
+     * @param string $id
+     *
+     * @return UserInterface
+     */
     public function findOneById($id)
     {
-        // TODO: Implement findOneById() method.
+        return $this->userRepository->find($id);
     }
 }
