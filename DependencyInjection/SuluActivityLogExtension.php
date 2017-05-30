@@ -29,6 +29,8 @@ class SuluActivityLogExtension extends Extension
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
+        $container->setAlias('sulu_activity_log.activity_log_storage', $config['storage']['service_id']);
+
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.xml');
     }

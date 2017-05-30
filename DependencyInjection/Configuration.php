@@ -25,7 +25,13 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $treeBuilder->root('sulu_activity_log');
+        $rootNode = $treeBuilder->root('sulu_activity_log');
+        $rootNode->children()
+            ->arrayNode('storage')
+                ->children()
+                    ->scalarNode('service_id')->end()
+                ->end()
+            ->end();
 
         return $treeBuilder;
     }
