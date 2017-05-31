@@ -61,6 +61,7 @@ define(['text!./list.html'], function(list) {
                 },
                 {
                     el: this.sandbox.dom.find('#activity-log-list'),
+                    idKey: 'uuid',
                     url: '/admin/api/activity-log',
                     searchInstanceName: 'activitylog',
                     resultKey: 'activity-log-items',
