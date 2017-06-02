@@ -4,8 +4,9 @@ doctrine:
         dbname: "su_activity_log_test"
 
 sulu_activity_log:
-    storage:
-        service_id: "sulu_activity_log.array_activity_log_storage"
+    storage: array
+    storages:
+        array: ~
 
 services:
     sulu_activity_log.array_activity_log_storage:

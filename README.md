@@ -22,7 +22,7 @@ For detailed requirements see [composer.json](https://github.com/sulu/SuluActivi
 
 ## Documentation
 
-The the Documentation is stored in the
+The documentation is stored in the
 [Resources/doc/](https://github.com/sulu/SuluActivityLogBundle/blob/master/Resources/doc) folder.
 
 ## Installation
