@@ -17,7 +17,6 @@ use Symfony\Component\HttpKernel\Client;
 
 class ActivityLogControllerTest extends SuluTestCase
 {
-
     /**
      * @var ActivityLogStorageInterface
      */
