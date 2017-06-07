@@ -45,7 +45,7 @@ class SuluActivityLogExtension extends Extension
                 break;
 
             case self::STORAGE_CUSTOM:
-                $id = $this->initCustom($config['storages']['custom']);
+                $id = $this->initCustom($config['storages']['custom'], $container);
                 break;
         }
 
@@ -81,7 +81,13 @@ class SuluActivityLogExtension extends Extension
         return 'sulu_activity_log.storage.elastic';
     }
 
-    private function initArray($config, $container)
+    /**
+     * @param array $config
+     * @param ContainerBuilder $container
+     *
+     * @return string
+     */
+    private function initArray(array $config, ContainerBuilder $container)
     {
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('storages/array.xml');
@@ -89,7 +95,13 @@ class SuluActivityLogExtension extends Extension
         return 'sulu_activity_log.storage.array';
     }
 
-    private function initCustom($config)
+    /**
+     * @param array $config
+     * @param ContainerBuilder $container
+     *
+     * @return string
+     */
+    private function initCustom(array $config, ContainerBuilder $container)
     {
         if (!$config['id']) {
             $error = new InvalidConfigurationException();
@@ -98,6 +110,6 @@ class SuluActivityLogExtension extends Extension
             throw $error;
         }
 
-        return 'sulu_activity_log.storage.custom';
+        return $config['id'];
     }
 }
