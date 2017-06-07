@@ -11,8 +11,8 @@
 namespace Sulu\Bundle\ActivityLogBundle\Repository;
 
 use Sulu\Component\ActivityLog\Repository\UserRepositoryInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
 use Sulu\Component\Security\Authentication\UserRepositoryInterface as SuluUserRepositoryInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Repository for the User, implementing some additional functions

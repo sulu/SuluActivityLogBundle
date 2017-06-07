@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <!-- elastic -->
+        <service id="sulu_activity_log.storage.elastic"
+                 class="Sulu\Bundle\ElasticsearchActivityLogBundle\Storage\ElasticsearchActivityStorage">
+            <argument/>
+            <argument type="service" id="sulu_activity_log.user_repository"/>
+        </service>
+        <service id="sulu_activity_log.user_repository"
+                 class="Sulu\Bundle\ActivityLogBundle\Repository\SuluUserRepositoryAdapter">
+            <argument type="service" id="sulu.repository.user"/>
+        </service>
+    </services>
+</container>

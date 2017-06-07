@@ -17,7 +17,6 @@ use Symfony\Component\HttpKernel\Client;
 
 class ActivityLogControllerTest extends SuluTestCase
 {
-
     /**
      * @var ActivityLogStorageInterface
      */
@@ -28,7 +27,7 @@ class ActivityLogControllerTest extends SuluTestCase
      */
     private function initStorage(Client $client)
     {
-        $this->storage = $client->getContainer()->get('sulu_activity_log.array_activity_log_storage');
+        $this->storage = $client->getContainer()->get('sulu_activity_log.activity_log_storage');
 
         $activityLog = $this->storage->create('log');
         $activityLog->setTitle('testA');
